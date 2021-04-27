@@ -27,6 +27,7 @@ class FigureCanvasQTAgg(FigureCanvasAgg, FigureCanvasQT):
         In Qt, all drawing should be done inside of here when a widget is
         shown onscreen.
         """
+
         self._draw_idle()  # Only does something if a draw is pending.
 
         # If the canvas does not have a renderer, then give up and wait for
@@ -55,9 +56,11 @@ class FigureCanvasQTAgg(FigureCanvasAgg, FigureCanvasQT):
             reg = self.copy_from_bbox(bbox)
             buf = cbook._unmultiplied_rgba8888_to_premultiplied_argb32(
                 memoryview(reg))
-
             # clear the widget canvas
             painter.eraseRect(rect)
+
+            palette = QtGui.QPalette(QtCore.Qt.white)
+            self.setPalette(palette)
 
             qimage = QtGui.QImage(buf, buf.shape[1], buf.shape[0],
                                   QtGui.QImage.Format_ARGB32_Premultiplied)

@@ -25,6 +25,8 @@ class FigureCanvasQTCairo(FigureCanvasQT, FigureCanvasCairo):
             self._renderer.set_width_height(width, height)
             self.figure.draw(self._renderer)
         buf = self._renderer.gc.ctx.get_target().get_data()
+        palette = QtGui.QPalette(QtCore.Qt.white)
+        self.setPalette(palette)
         qimage = QtGui.QImage(buf, width, height,
                               QtGui.QImage.Format_ARGB32_Premultiplied)
         # Adjust the buf reference count to work around a memory leak bug in
